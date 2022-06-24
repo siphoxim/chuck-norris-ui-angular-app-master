@@ -1,0 +1,43 @@
+<div class="container">
+
+  <h1>Chuck Norris Jokes</h1>
+  <div class="center">
+    <div class="radio-group" *ngFor="let category of categories; let i = index" for="tab">
+      <label class='radio-label'>
+        <input name='snacks' type='radio' id='radio' checked='checked' (click)="getByCategory(category)">
+        <span *ngIf="category!='explicit'" class='inner-label'>{{category}}</span>
+      </label>
+    </div>
+  </div>
+
+  <div *ngIf="hasBeenChecked" class="main">
+    <div class="example-table mat-elevation-z8" >
+    <table  mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="icon_url">
+          <th mat-header-cell *matHeaderCellDef> Image </th>
+          <td mat-cell *matCellDef="let element"><img src="assets/chucknorris.png" alt="" height=100 width=100></td>
+        </ng-container>
+        <ng-container matColumnDef="joke">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Joke </th>
+          <td style="width: 50%;" mat-cell *matCellDef="let element"> {{element.value}} </td>
+        </ng-container>
+        <ng-container matColumnDef="date_updated">
+          <th mat-header-cell *matHeaderCellDef>Date Updated</th>
+          <td mat-cell *matCellDef="let element"> {{element.updated_at|date:'dd-MM-yyyy HH:mm'}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+ </div>
+  </div>
+
+  <div style="margin-top: 10%; align-items: center; display: inline;" *ngIf="!hasBeenChecked">
+    <div>
+      <img src="assets/chucknorris.png" alt="" height=100 width=100>
+
+    </div>
+
+    <h3>{{randomJoke.value}}</h3>
+
+  </div>
+</div>
